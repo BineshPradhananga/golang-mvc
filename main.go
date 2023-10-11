@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
 
-	"github.com/binesh/gomvc/controllers"
 	"github.com/binesh/gomvc/initalizer"
+	"github.com/binesh/gomvc/routes"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -18,14 +19,10 @@ func main() {
 	fmt.Println("hello world")
 
 	app := fiber.New()
+	// app.Static("/", "./public")
 
-	app.Get("/", controllers.PostIndex)
-
-	app.Get("/test", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
-	})
-
-	app.Listen(":3000")
-	// app.Listen(":" + os.Getenv(port))
+	routes.Routes(app)
+	// app.Listen(":3000")
+	app.Listen(":" + os.Getenv("PORT"))
 
 }
