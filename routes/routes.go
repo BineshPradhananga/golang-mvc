@@ -13,4 +13,14 @@ func Routes(app *fiber.App) {
 	app.Get("/test", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World!")
 	})
+
+	api := app.Group("/user")
+
+	api.Get("/get-user", controllers.User)
+
+	api.Post("/register", controllers.Register)
+
+	api.Post("/login", controllers.Login)
+
+	api.Post("/logout", controllers.Logout)
 }

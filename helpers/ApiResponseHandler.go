@@ -29,13 +29,27 @@ func SuccessMessage(message string) interface{} {
 
 }
 
+func ErrorMessage(message string) interface{} {
+
+	response := map[string]interface{}{
+		"status":     false,
+		"statusCode": http.StatusForbidden,
+		"message":    message,
+	}
+	return response
+
+}
+
 // func (h *Helper) GetData(data interface{}) {
 // func GetData(c *fiber.Ctx, data interface{}) {
-func GetData(data interface{}) interface{} {
+func GetData(data interface{}, message string) interface{} {
+	if message == "" {
+		message = "Data Found!!"
+	}
 	response := map[string]interface{}{
 		"status":     true,
 		"statusCode": http.StatusOK,
-		"message":    "Data Found!!",
+		"message":    message,
 		"response": map[string]interface{}{
 			"data": data,
 		},
