@@ -7,7 +7,7 @@ import (
 
 func Routes(app *fiber.App) {
 	//function name should be start with  capital letter
-	app.Get("/", controllers.PostIndex)
+	app.Get("/list", controllers.PostIndex)
 	app.Get("/create", controllers.PostCreate)
 
 	app.Get("/test", func(c *fiber.Ctx) error {

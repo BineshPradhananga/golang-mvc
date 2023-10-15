@@ -1,36 +1,45 @@
 package helpers
 
 import (
-	"fmt"
 	"net/http"
 )
 
-type Response struct {
-	StatusCode int
-	Status     int
-	Message    string
-	Data       interface{}
+type Helper struct {
+	status     int
+	message    string
+	statusCode int
+	data       interface{}
+}
+
+// func (h *Helper) SuccessMessage(message string) interface{} {
+func SuccessMessage(message string) interface{} {
+
+	// var h = new(Helper)
+	// h.status = 1
+	// h.message = message
+	// h.statusCode = http.StatusOK
+	// return h
+
+	response := map[string]interface{}{
+		"status":     true,
+		"statusCode": http.StatusOK,
+		"message":    message,
+	}
+	return response
+
 }
 
 // func (h *Helper) GetData(data interface{}) {
 // func GetData(c *fiber.Ctx, data interface{}) {
-func GetData(data interface{}) {
-	// return Response{
-	// 	StatusCode: http.StatusOK,
-	// 	Status:     200,
-	// 	Message:    "OK",
-	// 	Data:       data,
-	// }
-	var response Response
-	response.StatusCode = http.StatusOK
-	response.Status = 200
-	response.Message = "OK"
-	response.Data = data
-	return string(&response)
-	fmt.Println(response)
-	// return response
+func GetData(data interface{}) interface{} {
+	response := map[string]interface{}{
+		"status":     true,
+		"statusCode": http.StatusOK,
+		"message":    "Data Found!!",
+		"response": map[string]interface{}{
+			"data": data,
+		},
+	}
+	return response
 
-	// return c.JSON(response.StatusCode, response)
-	// return c.Status(200).JSON(json.response)
-	// return &response
 }
