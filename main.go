@@ -16,15 +16,12 @@ func init() {
 }
 
 func main() {
-	// fmt.Println("hello world")
 
 	app := fiber.New()
-	// app.Static("/", "./public")
 	app.Use(cors.New(cors.Config{
 		AllowCredentials: true, //Very important while using a HTTPonly Cookie, frontend can easily get and return back the cookie.
 	}))
 	routes.Routes(app)
-	// app.Listen(":3000")
 	app.Listen(":" + os.Getenv("PORT"))
 
 }

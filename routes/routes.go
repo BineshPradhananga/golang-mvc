@@ -16,7 +16,7 @@ func Routes(app *fiber.App) {
 
 	api := app.Group("/user")
 
-	api.Get("/get-user", controllers.User)
+	api.Get("/get_user", controllers.User)
 
 	api.Post("/register", controllers.Register)
 

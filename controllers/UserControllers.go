@@ -3,7 +3,6 @@ package controllers
 import (
 	"github.com/binesh/gomvc/helpers"
 
-	"fmt"
 	"strconv"
 	"time"
 
@@ -23,8 +22,13 @@ func Register(c *fiber.Ctx) error {
 		return c.Status(statusCode.(int)).JSON(response)
 
 	}
-	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14) //GenerateFromPassword returns the bcrypt hash of the password at the given cost i.e. (14 in our case).
+	password, err := bcrypt.GenerateFromPassword([]byte(data["password"]), 14) //GenerateFromPassword returns the bcrypt hash of the password at the given cost i.e. (14 in our case).
+	if err != nil {
+		var response = helpers.ErrorMessage("Error occured!!")
+		statusCode := response.(map[string]interface{})["statusCode"]
+		return c.Status(statusCode.(int)).JSON(response)
 
+	}
 	user := models.User{
 		Name:     data["name"],
 		Email:    data["email"],
@@ -74,7 +78,6 @@ func Login(c *fiber.Ctx) error {
 	})
 
 	token, err := claims.SignedString([]byte(SecretKey))
-	fmt.Println(token)
 	if err != nil {
 
 		var response = helpers.ErrorMessage("Error occured!!")
@@ -95,8 +98,7 @@ func Login(c *fiber.Ctx) error {
 
 	var response = helpers.GetData(user, "Registered Successfully!!")
 	statusCode := response.(map[string]interface{})["statusCode"]
-	return c.Status(statusCode.(int)).JSON(response)
-	// return c.JSON(user) // If Login is Successfully done return the User data.
+	return c.Status(statusCode.(int)).JSON(response) // If Login is Successfully done return the User data.
 
 }
 
