@@ -11,8 +11,14 @@ import (
 
 func init() {
 	initalizer.LoadEnvVars()
-	initalizer.ConnectToDatabase()
-	initalizer.SyncDb()
+	db, err := initalizer.ConnectToDatabase()
+	if err != nil {
+		// Handle the error (e.g., log it and exit the application)
+		return
+	}
+
+	// Perform database schema migrations
+	initalizer.SyncDb(db)
 }
 
 func main() {

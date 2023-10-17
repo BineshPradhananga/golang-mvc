@@ -8,4 +8,6 @@ type Post struct {
 	Body        string
 	Description string
 	Slug        string
+	UserID      uint // Foreign key referencing the User table
+	User        User `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }
