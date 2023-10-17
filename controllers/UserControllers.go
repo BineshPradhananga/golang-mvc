@@ -90,9 +90,7 @@ func Login(c *fiber.Ctx) error {
 			return c.Status(statusCode.(int)).JSON(response)
 		}
 	}
-
 	var user models.User
-
 	initalizer.DB.Where("email = ?", data.Email).First(&user) //Check the email is present in the DB
 
 	if user.ID == 0 { //If the ID return is '0' then there is no such email present in the DB
@@ -132,8 +130,10 @@ func Login(c *fiber.Ctx) error {
 	c.Cookie(&cookie)
 
 	c.Status(200)
-
-	var response = helpers.GetData(user, "Login Successfully!!")
+	var returns = make(map[string]interface{})
+	returns["userdetails"] = user
+	returns["token"] = token
+	var response = helpers.GetData(returns, "Login Successfully!!")
 	statusCode := response.(map[string]interface{})["statusCode"]
 	return c.Status(statusCode.(int)).JSON(response) // If Login is Successfully done return the User data.
 
