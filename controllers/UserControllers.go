@@ -65,7 +65,7 @@ func Register(c *fiber.Ctx) error {
 const SecretKey = "secret"
 
 type LoginParams struct {
-	Email    string `json:"email" form:"email" validate:"required" "email"`
+	Email    string `json:"email" form:"email" validate:"required,email"`
 	Password string `json:"password" form:"password" validate:"required"`
 }
 
