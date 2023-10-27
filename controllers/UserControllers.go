@@ -8,12 +8,20 @@ import (
 
 	"github.com/binesh/gomvc/initalizer"
 	"github.com/binesh/gomvc/models"
+
+	// "github.com/binesh/gomvc/views"
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/go-playground/validator/v10"
 )
+
+func RegisterPage(c *fiber.Ctx) error {
+	return c.Render("register", fiber.Map{
+		"Title": "Register",
+	})
+}
 
 type RegisterParams struct {
 	Name     string `json:"name" form:"name" validate:"required"`

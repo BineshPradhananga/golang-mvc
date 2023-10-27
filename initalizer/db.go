@@ -1,6 +1,7 @@
 package initalizer
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/binesh/gomvc/models"
@@ -10,22 +11,18 @@ import (
 
 var DB *gorm.DB
 
-func ConnectToDatabase() (*gorm.DB, error) {
-	if DB != nil {
-		return DB, nil // Return the existing connection if it's already initialized
-	}
+func ConnectToDatabase() {
+	var err error
 
 	dsn := os.Getenv("DB_USER") + ":" + os.Getenv("DB_PASSWORD") + "@tcp(" + os.Getenv("DB_HOST") + ":" + os.Getenv("DB_PORT") + ")/" + os.Getenv("DB_DATABASE") + "?charset=utf8mb4&parseTime=True&loc=Local"
-	var err error
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		return nil, err
+		fmt.Println("Failed to connect to database", err)
 	}
-	return DB, nil
 }
 
-func SyncDb(DB *gorm.DB) {
+func SyncDb() {
 	DB.AutoMigrate(&models.Post{})
 	DB.AutoMigrate(&models.User{})
 }
