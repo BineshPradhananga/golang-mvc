@@ -1,0 +1,16 @@
+# air.toml
+
+# Build the main application binary.
+[build]
+  cmd = "go build -o ./tmp/main"
+
+# Specify the directory to watch for changes.
+# Exclude unnecessary files or directories.
+[build.watch]
+  paths = ["./", "./cmd", "./pkg"]
+  exclude = ["tmp/*", "assets/*"]
+
+# Specify the binary to run after a successful build.
+[run]
+  cmd = "./tmp/main"
+  args = []

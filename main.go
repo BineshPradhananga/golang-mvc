@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"log"
 
 	"github.com/binesh/gomvc/initalizer"
 	"github.com/binesh/gomvc/routes"
@@ -11,6 +12,7 @@ import (
 )
 
 func init() {
+	
 	initalizer.LoadEnvVars()
 	initalizer.ConnectToDatabase()
 	// Perform database schema migrations
@@ -18,6 +20,13 @@ func init() {
 }
 
 func main() {
+	//set log file on file daily wise
+	err := initalizer.SetupLog()
+	if err != nil {
+		log.Fatalf("Error setting up log: %v", err)
+	}
+	defer initalizer.CloseLog()
+	
 	//load template
 	engine := html.New("./views", ".html")
 

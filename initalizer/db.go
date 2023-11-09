@@ -25,4 +25,5 @@ func ConnectToDatabase() {
 func SyncDb() {
 	DB.AutoMigrate(&models.Post{})
 	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.Permission{})
 }

@@ -23,6 +23,12 @@ func RegisterPage(c *fiber.Ctx) error {
 	})
 }
 
+func LoginPage(c *fiber.Ctx) error {
+	return c.Render("login", fiber.Map{
+		"Title": "Login",
+	})
+}
+
 type RegisterParams struct {
 	Name     string `json:"name" form:"name" validate:"required"`
 	Email    string `json:"email" form:"email" validate:"required" "email"`
